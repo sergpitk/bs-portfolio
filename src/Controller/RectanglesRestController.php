@@ -5,16 +5,16 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RectanglesInputController extends AbstractController
+class RectanglesRestController extends AbstractController
 {
     /**
-     * @Route("/rectangles/input", name="rectangles_input")
+     * @Route("/generate-rectangles/", name="generate_rectangles", methods={"POST"})
      */
-    public function index()
+    public function RectanglesInput()
     {
         return $this->json([
             'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/RectanglesInputController.php',
+            'path' => 'src/Controller/RectanglesRestController.php',
         ]);
     }
 }
