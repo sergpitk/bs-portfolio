@@ -11,13 +11,18 @@ class RectanglesRestController extends AbstractController
 {
     /**
      * @Route("/generate-rectangles/", name="generate_rectangles", methods={"POST"})
+     * @param Request $request
      * @return JsonResponse
      */
-    public function RectanglesInput()
+    public function RectanglesInput(Request $request)
     {
+
+        $data = $request->getContent();
+
         return $this->json([
             'message' => 'Welcome to your new controller!',
             'path' => 'src/Controller/RectanglesRestController.php',
+            'res' => $data
         ]);
     }
 
