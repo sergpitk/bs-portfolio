@@ -16,7 +16,7 @@ curl -X POST http://your-server/generate-rectangles -d '
     color: '#fff', // jebkāds HEX krāsu kods
     rectangles: [
         { 
-            id: 'my-id' //jebkāds teksts vai skaitlis, kas nepārsniedz 255 simbolus un ir unikāls visa rectangles masīva ietvaros
+            id: 'my-id', //jebkāds teksts vai skaitlis, kas nepārsniedz 255 simbolus un ir unikāls visa rectangles masīva ietvaros
             x: 10, // jebkāds pozitīvs skaitlis
             y: 10, // jebkāds pozitīvs skaitlis
             height: 100, // jebkāds pozitīvs skaitlis
