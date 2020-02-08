@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\RectanglesRawDataProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,17 +13,20 @@ class RectanglesRestController extends AbstractController
     /**
      * @Route("/generate-rectangles/", name="generate_rectangles", methods={"POST"})
      * @param Request $request
+     * @param RectanglesRawDataProcessor $rectanglesRawDataProcessor
      * @return JsonResponse
      */
-    public function RectanglesInput(Request $request)
+    public function RectanglesInput(Request $request, RectanglesRawDataProcessor $rectanglesRawDataProcessor)
     {
-
         $data = $request->getContent();
+
+        $res = $rectanglesRawDataProcessor->convertRaw($data);
+
 
         return $this->json([
             'message' => 'Welcome to your new controller!',
             'path' => 'src/Controller/RectanglesRestController.php',
-            'res' => $data
+            'res' => $res
         ]);
     }
 
