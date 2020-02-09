@@ -63,8 +63,6 @@ class RectanglesOverlapValidator
                     $rectanglesUnit->setErrors((string)$errors);
                 }
             }
-
-
         }
         return $rectangle;
     }
@@ -127,9 +125,6 @@ class RectanglesOverlapValidator
                     : $rectanglesUnit->setStatus($this->status[1]);
             });
         }
-
-//                var_dump(collect($rectangle->getRectangles())->dump());
-
     }
 
     private function checkLeftX (RectanglesUnit $rectanglesUnit, RectanglesUnit $unit) {
