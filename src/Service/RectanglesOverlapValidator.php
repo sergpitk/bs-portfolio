@@ -20,6 +20,9 @@ class RectanglesOverlapValidator
     /** @param $status */
     private $status;
 
+    /** @var $overlap */
+    private $overlap;
+
     public function __construct(ValidatorInterface $validator, $status)
     {
         $this->validator = $validator;
@@ -78,17 +81,11 @@ class RectanglesOverlapValidator
 
     protected function validateRectanglesUnitOverlap(Rectangle $rectangle, RectanglesUnit $rectanglesUnit, $key)
     {
-        echo '<pre>';
-            var_dump($key);
-            var_dump($rectanglesUnit->getIdentity());
-        echo '</pre>';
-
-
 
         $rectanglesUnitBucket = collect($rectangle->getRectangles())
             ->map(function ($unit, $unitKey) use ($key) {
                 /** @var RectanglesUnit $unit */
-                if ($key > $unitKey && ($unit->getStatus() !== $this->status[1])) {
+                if (/*$key > $unitKey &&*/ ($unit->getStatus() === $this->status[2])) {
                     return $unit;
                 }
                 else return false;
@@ -96,24 +93,37 @@ class RectanglesOverlapValidator
             ->filter();
 
 
+        var_dump($rectanglesUnitBucket->dump());
 
 
 //        var_dump($rectanglesUnit->getIdentity());
 
 
 
-//        var_dump($rectanglesUnitBucket->all());
+//        var_dump($rectanglesUnitBucket->dump());
 
         if (count ($rectanglesUnitBucket->all()) == 0) {
             $rectanglesUnit->setStatus($this->status[2]);
         }
         else {
-            $rectanglesUnitBucket->each( function($unit,$unitKey) use ($rectanglesUnit, $key) {
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkLeftX($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkHighY($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkRightX($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkLowerY($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $rectanglesUnit->setStatus($this->status[1]);
+
+            $count = $rectanglesUnitBucket->count();
+            $rectanglesUnitBucket->each( function($unit, $unitKey) use ($rectanglesUnit, $count) {
+
+                $this->overlap = 0;
+                echo '<pre>';
+                var_dump($rectanglesUnit->getIdentity());
+                var_dump($rectanglesUnit->getStatus());
+                var_dump($unitKey);
+                echo '</pre>';
+
+
+                ($rectanglesUnit->getStatus() === $this->status[2] && ($unitKey == $count)) ? : $this->checkLeftX($rectanglesUnit, $unit);
+                ($rectanglesUnit->getStatus() === $this->status[2] && ($unitKey == $count)) ? : $this->checkHighY($rectanglesUnit, $unit);
+                ($rectanglesUnit->getStatus() === $this->status[2] && ($unitKey == $count)) ? : $this->checkRightX($rectanglesUnit, $unit);
+                ($rectanglesUnit->getStatus() === $this->status[2] && ($unitKey == $count)) ? : $this->checkLowerY($rectanglesUnit, $unit);
+
+                ($this->overlap == 1) ? $rectanglesUnit->setStatus($this->status[2]) : $rectanglesUnit->setStatus($this->status[1]);
             });
         }
 
@@ -121,46 +131,41 @@ class RectanglesOverlapValidator
 
 
 
-        $rectanglesUnitBucket->each( function($unit,$unitKey) use ($rectanglesUnit, $key) {
 
-            /** @var RectanglesUnit $unit */
-            /* in this Context $unit is one of yet checked rectanglesUnit, but current is $rectanglesUnit*/
-            if ($key > $unitKey && $unit->getStatus() !== $this->status[1]) {
-
-                /*($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkLeftX($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkHighY($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkRightX($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $this->checkLowerY($rectanglesUnit, $unit);
-                ($rectanglesUnit->getStatus() === $this->status[2]) ? : $rectanglesUnit->setStatus($this->status[1]);*/
-            }
-            else {
-                $rectanglesUnit->setStatus($this->status[2]);
-            }
-        });
-                var_dump(collect($rectangle->getRectangles())->dump());
+//                var_dump(collect($rectangle->getRectangles())->dump());
 
     }
 
     protected function checkLeftX (RectanglesUnit $rectanglesUnit, RectanglesUnit $unit) {
-        if ($rectanglesUnit->getX() > ($unit->getX() + $unit->getWidth())) {
+        var_dump(($rectanglesUnit->getX() + $rectanglesUnit->getWidth()), '$rectanglesUnit->getX()');
+        var_dump($unit->getX(), 'unit->getX()');
+
+        if ($unit->getX() > ($rectanglesUnit->getX() + $rectanglesUnit->getWidth())) {
+            var_dump($rectanglesUnit->getIdentity(),'checkLeftX');
             $rectanglesUnit->setStatus($this->status[2]);
         }
     }
 
     protected function checkHighY (RectanglesUnit $rectanglesUnit, RectanglesUnit $unit) {
-        if (($rectanglesUnit->getY() + $rectanglesUnit->getHeight()) < $unit->getY()) {
+        if (($unit->getY() + $unit->getHeight()) < $rectanglesUnit->getY()) {
+            var_dump($rectanglesUnit->getIdentity(),'checkHighY');
+
             $rectanglesUnit->setStatus($this->status[2]);
         }
     }
 
     protected function checkRightX (RectanglesUnit $rectanglesUnit, RectanglesUnit $unit) {
-        if (($rectanglesUnit->getX() + $rectanglesUnit->getWidth()) < $unit->getX()) {
+        if (($unit->getX() + $unit->getWidth()) < $rectanglesUnit->getX()) {
+            var_dump($rectanglesUnit->getIdentity(),'checkRightX');
+
             $rectanglesUnit->setStatus($this->status[2]);
         }
     }
 
     protected function checkLowerY (RectanglesUnit $rectanglesUnit, RectanglesUnit $unit) {
-        if ($rectanglesUnit->getY()  > ($unit->getY() + $unit->getHeight())) {
+        if ($unit->getY()  > ($rectanglesUnit->getY() + $rectanglesUnit->getHeight())) {
+            var_dump($rectanglesUnit->getIdentity(),'checkLowerY');
+
             $rectanglesUnit->setStatus($this->status[2]);
         }
     }
