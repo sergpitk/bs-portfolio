@@ -49,6 +49,16 @@ class RectanglesUnit
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="string", length=24)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $status_library = [];
+
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('identity', new Assert\NotBlank());
@@ -142,6 +152,30 @@ class RectanglesUnit
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStatusLibrary(): ?array
+    {
+        return $this->status_library;
+    }
+
+    public function setStatusLibrary(array $status_library): self
+    {
+        $this->status_library = $status_library;
 
         return $this;
     }

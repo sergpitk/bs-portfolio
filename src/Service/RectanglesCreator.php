@@ -20,10 +20,12 @@ class RectanglesCreator
     /** @var RectanglesUnit $rectanglesUnit */
     private $rectanglesUnit;
     private $validator;
+    private $status;
 
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(ValidatorInterface $validator, $status)
     {
         $this->validator = $validator;
+        $this->status = $status;
     }
 
     /**
@@ -54,12 +56,15 @@ class RectanglesCreator
         $this->rectanglesUnit->setWidth($rectanglesUnitData['width']);
         $this->rectanglesUnit->setHeight($rectanglesUnitData['height']);
         $this->rectanglesUnit->setColor($rectanglesUnitData['color']);
+        $this->rectanglesUnit->setStatus($this->status[0]);
 
         $errors = $this->validator->validate($this->rectanglesUnit);
 
-        echo '<pre>';
-        var_dump($errors);
-        echo '</pre>';
+        if (count($errors) > 0) {
+            echo '<pre>';
+            var_dump((string)$errors);
+            echo '</pre>';
+        }
 
         return $this->rectanglesUnit;
     }
@@ -75,7 +80,11 @@ class RectanglesCreator
         $errors = $this->validator->validate($this->rectangle);
 
 //        var_dump($errors->count());
-//        var_dump((string) $errors);
+        if (count($errors) > 0) {
+            echo '<pre>';
+            var_dump((string)$errors);
+            echo '</pre>';
+        }
     }
 
 
