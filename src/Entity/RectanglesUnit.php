@@ -17,6 +17,12 @@ class RectanglesUnit
     private $id;
 
     /**
+     * @ORM\Column(type="string",length=255)
+     */
+    private $identity;
+
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $x;
@@ -44,6 +50,21 @@ class RectanglesUnit
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdentity(): ?string
+    {
+        return $this->identity;
+    }
+
+    public function setIdentity(string $identity): self
+    {
+        $this->identity = $identity;
+
+        return $this;
     }
 
     public function getX(): ?int
