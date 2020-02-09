@@ -40,9 +40,7 @@ class RectanglesCreator
             );
         }
 
-        echo '<pre>';
-        var_dump($this->rectangle);
-        echo '</pre>';
+
     }
 
 
@@ -58,6 +56,10 @@ class RectanglesCreator
         $this->rectanglesUnit->setColor($rectanglesUnitData['color']);
 
         $errors = $this->validator->validate($this->rectanglesUnit);
+
+        echo '<pre>';
+        var_dump($errors);
+        echo '</pre>';
 
         return $this->rectanglesUnit;
     }

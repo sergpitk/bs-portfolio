@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RectanglesUnitRepository")
@@ -46,6 +48,23 @@ class RectanglesUnit
      * @ORM\Column(type="string", length=24)
      */
     private $color;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('identity', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('identity', new Assert\Length(['min' => 1, 'max' => 255]));
+        $metadata->addPropertyConstraint('x', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('x', new Assert\Range(['min' => 1]));
+        $metadata->addPropertyConstraint('y', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('y', new Assert\Range(['min' => 1]));
+        $metadata->addPropertyConstraint('height', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('height', new Assert\Range(['min' => 1]));
+        $metadata->addPropertyConstraint('height', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('height', new Assert\Range(['min' => 1]));
+        $metadata->addPropertyConstraint('color',
+            new Assert\Regex(['pattern' => '/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/',]));
+    }
+
 
     public function getId(): ?int
     {

@@ -40,7 +40,6 @@ class Rectangle
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('width', new Assert\NotBlank());
         $metadata->addPropertyConstraint('width', new Assert\Range(['min' => 640, 'max' => 1920]));
         $metadata->addPropertyConstraint('height', new Assert\NotBlank());
