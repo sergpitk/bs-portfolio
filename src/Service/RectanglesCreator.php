@@ -31,11 +31,13 @@ class RectanglesCreator
     }
 
     /**
+     * @param Rectangle $rectangle
      * @param array $data
+     * @return Rectangle
      */
-    public function createRectangleCollection(array $data)
+    public function createRectangleCollection(Rectangle $rectangle, array $data)
     {
-        $this->rectangle = new Rectangle();
+        $this->rectangle = $rectangle;
         $this->createBasicRectangle($data);
 
         foreach ($data['rectangles'] as $key => $rectanglesUnitData){
@@ -43,8 +45,7 @@ class RectanglesCreator
                 $this->createRectangleUnit($rectanglesUnitData)
             );
         }
-
-
+        return $this->rectangle;
     }
 
 
