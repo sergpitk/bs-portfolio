@@ -67,8 +67,8 @@ class RectanglesUnit
         $metadata->addPropertyConstraint('x', new Assert\Range(['min' => 1]));
         $metadata->addPropertyConstraint('y', new Assert\NotBlank());
         $metadata->addPropertyConstraint('y', new Assert\Range(['min' => 1]));
-        $metadata->addPropertyConstraint('height', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('height', new Assert\Range(['min' => 1]));
+        $metadata->addPropertyConstraint('width', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('width', new Assert\Range(['min' => 1]));
         $metadata->addPropertyConstraint('height', new Assert\NotBlank());
         $metadata->addPropertyConstraint('height', new Assert\Range(['min' => 1]));
         $metadata->addPropertyConstraint('color',
