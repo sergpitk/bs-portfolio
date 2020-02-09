@@ -37,50 +37,49 @@ class RectanglesCreator
      */
     public function createRectangleCollection(Rectangle $rectangle, array $data)
     {
-        $this->rectangle = $rectangle;
-        $this->createBasicRectangle($data);
+        $this->createBasicRectangle($rectangle , $data);
 
         foreach ($data['rectangles'] as $key => $rectanglesUnitData){
-            $this->rectangle->setRectangles(
+            $rectangle->setRectangles(
                 $this->createRectangleUnit($rectanglesUnitData)
             );
         }
-        return $this->rectangle;
+        return $rectangle;
     }
 
 
     protected function createRectangleUnit(array $rectanglesUnitData)
     {
-        $this->rectanglesUnit = new RectanglesUnit();
+        $rectanglesUnit = new RectanglesUnit();
         
-        $this->rectanglesUnit->setIdentity($rectanglesUnitData['id']);
-        $this->rectanglesUnit->setX($rectanglesUnitData['x']);
-        $this->rectanglesUnit->setY($rectanglesUnitData['y']);
-        $this->rectanglesUnit->setWidth($rectanglesUnitData['width']);
-        $this->rectanglesUnit->setHeight($rectanglesUnitData['height']);
-        $this->rectanglesUnit->setColor($rectanglesUnitData['color']);
-        $this->rectanglesUnit->setStatus($this->status[0]);
+        $rectanglesUnit->setIdentity($rectanglesUnitData['id']);
+        $rectanglesUnit->setX($rectanglesUnitData['x']);
+        $rectanglesUnit->setY($rectanglesUnitData['y']);
+        $rectanglesUnit->setWidth($rectanglesUnitData['width']);
+        $rectanglesUnit->setHeight($rectanglesUnitData['height']);
+        $rectanglesUnit->setColor($rectanglesUnitData['color']);
+        $rectanglesUnit->setStatus($this->status[0]);
 
-        $errors = $this->validator->validate($this->rectanglesUnit);
+        $errors = $this->validator->validate($rectanglesUnit);
 
         if (count($errors) > 0) {
-            $this->rectanglesUnit->setErrors((string)$errors);
+            $rectanglesUnit->setErrors((string)$errors);
         }
-        return $this->rectanglesUnit;
+        return $rectanglesUnit;
     }
 
-    protected function createBasicRectangle(array $data)
+    protected function createBasicRectangle( Rectangle $rectangle, array $data)
     {
 
 
-        $this->rectangle->setWidth($data['width']);
-        $this->rectangle->setHeight($data['height']);
-        $this->rectangle->setColor($data['color']);
+        $rectangle->setWidth($data['width']);
+        $rectangle->setHeight($data['height']);
+        $rectangle->setColor($data['color']);
 
-        $errors = $this->validator->validate($this->rectangle);
+        $errors = $this->validator->validate($rectangle);
 
         if (count($errors) > 0) {
-            $this->rectangle->setErrors((string)$errors);
+            $rectangle->setErrors((string)$errors);
         }
     }
 
