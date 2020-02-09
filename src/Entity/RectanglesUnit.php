@@ -54,11 +54,6 @@ class RectanglesUnit
      */
     private $status;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $status_library = [];
-
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('identity', new Assert\NotBlank());
@@ -164,18 +159,6 @@ class RectanglesUnit
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getStatusLibrary(): ?array
-    {
-        return $this->status_library;
-    }
-
-    public function setStatusLibrary(array $status_library): self
-    {
-        $this->status_library = $status_library;
 
         return $this;
     }
