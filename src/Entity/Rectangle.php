@@ -38,6 +38,11 @@ class Rectangle
      */
     private $rectangles;
 
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $errors;
+
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('width', new Assert\NotBlank());
@@ -98,6 +103,18 @@ class Rectangle
     public function setRectangles($rectangleUnit): self
     {
         $this->rectangles[] = $rectangleUnit;
+
+        return $this;
+    }
+
+    public function getErrors() : ?array
+    {
+        return $this->errors;
+    }
+
+    public function setErrors($errors): self
+    {
+        $this->errors[] = $errors;
 
         return $this;
     }

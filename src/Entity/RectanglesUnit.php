@@ -54,6 +54,11 @@ class RectanglesUnit
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $errors;
+
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('identity', new Assert\NotBlank());
@@ -159,6 +164,18 @@ class RectanglesUnit
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getErrors(): ?array
+    {
+        return $this->errors;
+    }
+
+    public function setErrors($errors): self
+    {
+        $this->errors[] = $errors;
 
         return $this;
     }

@@ -10,6 +10,8 @@ namespace App\Service;
 
 use App\Entity\Rectangle;
 use App\Entity\RectanglesUnit;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
@@ -61,11 +63,11 @@ class RectanglesCreator
         $errors = $this->validator->validate($this->rectanglesUnit);
 
         if (count($errors) > 0) {
+            $this->rectanglesUnit->setErrors((string)$errors);
             echo '<pre>';
-            var_dump((string)$errors);
+            var_dump($this->rectanglesUnit->getErrors());
             echo '</pre>';
         }
-
         return $this->rectanglesUnit;
     }
 
@@ -79,10 +81,10 @@ class RectanglesCreator
 
         $errors = $this->validator->validate($this->rectangle);
 
-//        var_dump($errors->count());
         if (count($errors) > 0) {
+            $this->rectangle->setErrors((string)$errors);
             echo '<pre>';
-            var_dump((string)$errors);
+            var_dump($this->rectangle->getErrors());
             echo '</pre>';
         }
     }
