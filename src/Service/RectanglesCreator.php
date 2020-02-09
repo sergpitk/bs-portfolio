@@ -8,43 +8,38 @@
 
 namespace App\Service;
 
-
 use App\Entity\Rectangle;
 use App\Entity\RectanglesUnit;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class RectanglesCreator
 {
     private $rectangle;
     private $rectanglesUnit;
+    private $validator;
 
-    public function __construct()
+    public function __construct(ValidatorInterface $validator)
     {
         $this->rectangle = new Rectangle();
         $this->rectanglesUnit = new RectanglesUnit();
+        $this->validator = $validator;
     }
 
     public function createRectangleCollection(array $data)
     {
-        $validator = Validation::createValidator();
-        $groups = new Assert\GroupSequence(['Default', 'custom']);
-
-        $constraint = new Assert\Collection([
-            'width' => new Assert\Range(['min' => 640, 'max' => 1920]),
-            'height' => new Assert\Range(['min' => 480, 'max' => 1080]),
-            'color' => new Assert\Length(['min' => 1]),
-        ]);
-
-
-        $violations = $validator->validate($data, $constraint, $groups);
-        var_dump($violations->count());
-
-
         $this->rectangle->setWidth($data['width']);
         $this->rectangle->setHeight($data['height']);
         $this->rectangle->setColor($data['color']);
+
+        $errors = $this->validator->validate($this->rectangle);
         
-        var_dump($this->rectangle);
+        var_dump($errors->count());
+        var_dump((string) $errors);
     }
+
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RectangleRepository")
@@ -35,6 +37,18 @@ class Rectangle
      * @ORM\Column(type="object")
      */
     private $rectangles;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+
+        $metadata->addPropertyConstraint('width', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('width', new Assert\Range(['min' => 640, 'max' => 1920]));
+        $metadata->addPropertyConstraint('height', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('height', new Assert\Range(['min' => 480, 'max' => 1080]));
+        $metadata->addPropertyConstraint('color',
+            new Assert\Regex(['pattern' => '/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/',]));
+    }
+
 
     public function getId(): ?int
     {
