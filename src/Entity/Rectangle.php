@@ -96,9 +96,9 @@ class Rectangle
         return $this->rectangles;
     }
 
-    public function setRectangles($rectangles): self
+    public function setRectangles($rectangleUnit): self
     {
-        $this->rectangles = $rectangles;
+        $this->rectangles[] = $rectangleUnit;
 
         return $this;
     }
