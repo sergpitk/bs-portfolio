@@ -46,7 +46,7 @@ class RectanglesRestController extends AbstractController
         $rectanglesCollection = $rectanglesCreator->createRectangleCollection($rectangle, $convertedData);
 
         echo '<pre>';
-//        var_dump($rectanglesCollection->getErrors());
+//        var_dump($rectanglesCollection->getRectangles());
         echo '</pre>';
 
         if (NULL === $rectanglesCollection->getErrors()) {
