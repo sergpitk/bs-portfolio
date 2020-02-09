@@ -67,9 +67,6 @@ class RectanglesCreator
 
         if (count($errors) > 0) {
             $this->rectanglesUnit->setErrors((string)$errors);
-            echo '<pre>';
-            var_dump($this->rectanglesUnit->getErrors());
-            echo '</pre>';
         }
         return $this->rectanglesUnit;
     }
@@ -86,9 +83,6 @@ class RectanglesCreator
 
         if (count($errors) > 0) {
             $this->rectangle->setErrors((string)$errors);
-            echo '<pre>';
-            var_dump($this->rectangle->getErrors());
-            echo '</pre>';
         }
     }
 
