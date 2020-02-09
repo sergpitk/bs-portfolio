@@ -4,5 +4,15 @@ framework:
 
         # Enables validator auto-mapping support.
         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
-        #auto_mapping:
+        # auto_mapping:
         #    App\Entity\: []
+        # auto_mapping:
+        #    App\Entity\Rectangle:
+        #        properties:
+        #            width:
+        #                - NotBlank ~
+        #                - Range:
+        #                      min: 640
+        #                      max: 1920
+        #                      minMessage: You must be at least {{ limit }}px tall to enter
+        #                      maxMessage: You cannot be taller than {{ limit }}px to enter
