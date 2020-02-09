@@ -45,12 +45,13 @@ class RectanglesRestController extends AbstractController
 
         $rectanglesCollection = $rectanglesCreator->createRectangleCollection($rectangle, $convertedData);
 
-        echo '<pre>';
-//        var_dump($rectanglesCollection->getRectangles());
-        echo '</pre>';
+
 
         if (NULL === $rectanglesCollection->getErrors()) {
-            $rectanglesOverlapValidator->validateOverlapCollection($rectanglesCollection);
+            $rectangleOverlapChecked = $rectanglesOverlapValidator->validateOverlapCollection($rectanglesCollection);
+            echo '<pre>';
+            var_dump($rectangleOverlapChecked->getRectangles());
+            echo '</pre>';
         }
         else {
             return $this->json([

@@ -48,6 +48,23 @@ class RectanglesOverlapValidator
             if ($rectanglesUnit->getStatus() === $this->status[0]) {
                 $this->validateRectanglesUnitOverlap($rectangle, $rectanglesUnit, $key);
             }
+
+            if ($rectanglesUnit->getStatus() === $this->status[1]) {
+                $this->validateRectanglesUnitOverlap($rectangle, $rectanglesUnit, $key);
+
+                // todo get real overlap data for constraints
+                $input = [1,1];
+
+                $constraints = new Assert\Unique ();
+
+                $errors = $this->validator->validate($input, $constraints);
+
+                if (count($errors) > 0) {
+                    $rectanglesUnit->setErrors((string)$errors);
+                }
+            }
+
+
         }
         return $rectangle;
     }
@@ -111,7 +128,7 @@ class RectanglesOverlapValidator
             });
         }
 
-                var_dump(collect($rectangle->getRectangles())->dump());
+//                var_dump(collect($rectangle->getRectangles())->dump());
 
     }
 
