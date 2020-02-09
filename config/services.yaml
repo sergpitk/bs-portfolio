@@ -35,6 +35,10 @@ services:
 
     App\Entity\Rectangle:
 
+    App\Service\RectanglesOverlapValidator:
+
+    App\Service\RectanglesPngSaver:
+
 
 
 
