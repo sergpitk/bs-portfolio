@@ -11,8 +11,6 @@ namespace App\Service;
 
 use App\Entity\Rectangle;
 use App\Entity\RectanglesUnit;
-use Symfony\Component\Validator\ConstraintValidatorInterface;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
