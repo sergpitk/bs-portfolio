@@ -16,10 +16,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RectanglesCreator
 {
-    /** @var Rectangle $rectangle */
-    private $rectangle;
-    /** @var RectanglesUnit $rectanglesUnit */
-    private $rectanglesUnit;
     private $validator;
     /** @param $status */
     private $status;
@@ -64,6 +60,7 @@ class RectanglesCreator
 
         if (count($errors) > 0) {
             $rectanglesUnit->setErrors((string)$errors);
+            $rectanglesUnit->setStatus($this->status[1]);
         }
         return $rectanglesUnit;
     }
