@@ -6,6 +6,7 @@ use App\Entity\Rectangle;
 use App\Service\RectanglesCreator;
 use App\Service\RectanglesOverlapValidator;
 use App\Service\RectanglesRawDataProcessor;
+use App\Service\RectanglesPngSaver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,7 @@ class RectanglesRestController extends AbstractController
      * @param RectanglesRawDataProcessor $rectanglesRawDataProcessor
      * @param RectanglesCreator $rectanglesCreator
      * @param RectanglesOverlapValidator $rectanglesOverlapValidator
+     * @param RectanglesPngSaver $rectanglesPngSaver
      * @return JsonResponse
      */
     public function RectanglesInput(
@@ -36,7 +38,8 @@ class RectanglesRestController extends AbstractController
                         Rectangle $rectangle,
                         RectanglesRawDataProcessor $rectanglesRawDataProcessor,
                         RectanglesCreator $rectanglesCreator,
-                        RectanglesOverlapValidator $rectanglesOverlapValidator
+                        RectanglesOverlapValidator $rectanglesOverlapValidator,
+                        RectanglesPngSaver $rectanglesPngSaver
     )
     {
         $data = $request->getContent();
@@ -64,6 +67,8 @@ class RectanglesRestController extends AbstractController
                 ]
             ]);
         }
+
+
 
         return $this->json([
             'message' => 'Welcome to your new controller!',
