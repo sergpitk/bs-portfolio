@@ -13,6 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RectanglesRestController extends AbstractController
 {
+    /** @param  */
+    private $faults;
+
+    public function __construct($faults)
+    {
+        $this->faults = $faults;
+    }
+
+
     /**
      * @Route("/generate-rectangles/", name="generate_rectangles", methods={"POST"})
      * @param Request $request
@@ -37,10 +46,23 @@ class RectanglesRestController extends AbstractController
         $rectanglesCollection = $rectanglesCreator->createRectangleCollection($rectangle, $convertedData);
 
         echo '<pre>';
-        var_dump($rectanglesCollection->getRectangles());
+//        var_dump($rectanglesCollection->getErrors());
         echo '</pre>';
 
-        $rectanglesOverlapValidator->validateOverlapCollection($rectanglesCollection);
+        if (NULL === $rectanglesCollection->getErrors()) {
+            $rectanglesOverlapValidator->validateOverlapCollection($rectanglesCollection);
+        }
+        else {
+            return $this->json([
+                'success' => false,
+                'errors' => [
+                    $this->faults[0] => ['rectangle_id'],
+                    $this->faults[1] => ['rectangle_id'],
+                    $this->faults[2] => ['width'],
+                    $this->faults[3] => []
+                ]
+            ]);
+        }
 
         return $this->json([
             'message' => 'Welcome to your new controller!',

@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     status: ['pending', 'failed', 'in_progress', 'done']
+    faults: [ 'rectangles_overlap', 'rectangles_out_of_bounds', 'image_doesnt_fit_constraints', 'malformatted_json'
+    ]
 
 
 services:
@@ -28,16 +30,21 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Controller\RectanglesRestController:
+        arguments:
+            $faults: '%faults%'
+
     App\Service\RectanglesCreator:
         arguments:
-            #$validator : 'Symfony\Component\Validator\Validator\ValidatorInterface::class'
             $status: '%status%'
 
     App\Entity\Rectangle:
 
     App\Service\RectanglesOverlapValidator:
+        arguments:
+            $status: '%status%'
 
-    App\Service\RectanglesPngSaver:
+    #App\Service\RectanglesPngSaver:
 
 
 
