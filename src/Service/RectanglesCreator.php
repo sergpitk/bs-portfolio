@@ -4,6 +4,7 @@
  * User: Sergey Pitkevich <sergpitk@andi.lv>
  * Date: 09/02/2020
  * Time: 00:17
+ * create and validate main Rectangle and Rectangles Unit's
  */
 
 namespace App\Service;
@@ -22,6 +23,7 @@ class RectanglesCreator
     /** @var RectanglesUnit $rectanglesUnit */
     private $rectanglesUnit;
     private $validator;
+    /** @param $status */
     private $status;
 
     public function __construct(ValidatorInterface $validator, $status)
