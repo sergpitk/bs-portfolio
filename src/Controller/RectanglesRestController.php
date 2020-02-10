@@ -74,7 +74,7 @@ class RectanglesRestController extends AbstractController
 
         return $this->json([
             'success' => true,
-            'id' => auto-generated-identifier
+            'id' => $rectangle->getIdentity()
         ]);
     }
 
