@@ -12,21 +12,14 @@ class RectanglesRawDataProcessor
 {
 
     public function convertRaw ($data) {
-        function multi_explode ($delimiters,$string) {
-
-            $ready = str_replace($delimiters, $delimiters[0], $string);
-            return  explode($delimiters[0], $ready);
-        }
 
         $res = explode("rectangles", $data);
-
-
 
         $res_res = str_replace([",","{","}"], '', $res);
 
         $input = null;
         foreach ($res_res as $key => $value) {
-            $input[] = multi_explode(["id:", "x:", "y:", "height:", "width:", "color:"], $value);
+            $input[] = $this->multi_explode(["id:", "x:", "y:", "height:", "width:", "color:"], $value);
         }
 
         $headerBody = $input[0];
@@ -58,5 +51,11 @@ class RectanglesRawDataProcessor
             $header,
             ['rectangles'=> $body]
         );
+    }
+
+    protected function multi_explode ($delimiters,$string) {
+
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        return  explode($delimiters[0], $ready);
     }
 }
