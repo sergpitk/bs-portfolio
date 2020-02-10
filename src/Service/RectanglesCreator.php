@@ -69,6 +69,7 @@ class RectanglesCreator
     {
 
 
+        $rectangle->setIdentity(uniqid());
         $rectangle->setWidth($data['width']);
         $rectangle->setHeight($data['height']);
         $rectangle->setColor($data['color']);
