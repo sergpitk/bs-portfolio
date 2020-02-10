@@ -5,8 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     status: ['pending', 'failed', 'in_progress', 'done']
-    faults: [ 'rectangles_overlap', 'rectangles_out_of_bounds', 'image_doesnt_fit_constraints', 'malformatted_json'
-    ]
+    faults: [ 'rectangles_overlap', 'rectangles_out_of_bounds', 'image_doesnt_fit_constraints', 'malformatted_json']
+    prefix_path: '%kernel.project_dir%/public'
+    png_directory: '/uploads/png/'
 
 
 services:
@@ -45,6 +46,9 @@ services:
             $status: '%status%'
 
     App\Service\RectanglesPngSaver:
+        $prefixPath: '%prefix_path%'
+        $pngDirectory: '%png_directory%'
+        $status: '%status%'
 
 
 

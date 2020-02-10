@@ -68,6 +68,8 @@ class RectanglesRestController extends AbstractController
             ]);
         }
 
+        $rectanglesPngSaver->saveFile($rectangleOverlapChecked);
+
 
 
         return $this->json([
