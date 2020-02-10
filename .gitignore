@@ -10,5 +10,6 @@
 ###< symfony/framework-bundle ###
 ###>project ###
 .idea/
+/public/uploads/png/
 
 ###< progect ###
