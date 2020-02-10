@@ -43,6 +43,11 @@ class Rectangle
      */
     private $errors;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identity;
+
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('width', new Assert\NotBlank());
@@ -115,6 +120,18 @@ class Rectangle
     public function setErrors($errors): self
     {
         $this->errors[] = $errors;
+
+        return $this;
+    }
+
+    public function getIdentity(): ?string
+    {
+        return $this->identity;
+    }
+
+    public function setIdentity(?string $identity): self
+    {
+        $this->identity = $identity;
 
         return $this;
     }

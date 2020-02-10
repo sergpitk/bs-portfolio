@@ -52,9 +52,9 @@ class RectanglesRestController extends AbstractController
 
         if (NULL === $rectanglesCollection->getErrors()) {
             $rectangleOverlapChecked = $rectanglesOverlapValidator->validateOverlapCollection($rectanglesCollection);
-            echo '<pre>';
+            /*echo '<pre>';
             var_dump($rectangleOverlapChecked->getRectangles());
-            echo '</pre>';
+            echo '</pre>';*/
         }
         else {
             return $this->json([
@@ -73,9 +73,8 @@ class RectanglesRestController extends AbstractController
 
 
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/RectanglesRestController.php',
-            'res' => ''
+            'success' => true,
+            'id' => auto-generated-identifier
         ]);
     }
 
